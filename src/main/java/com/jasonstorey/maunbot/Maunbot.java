@@ -1,11 +1,18 @@
 package com.jasonstorey.maunbot;
 
-public class Maunbot {
+import java.util.Observer;
+import java.util.Observable;
+
+public class Maunbot implements Observer {
 
 	private String currentMessage;
 
     public Maunbot() {
         currentMessage = "Hello, world.";
+    }
+
+    public void update(Observable o, Object arg) {
+    	System.out.println(arg);
     }
 
     public String speak() {
