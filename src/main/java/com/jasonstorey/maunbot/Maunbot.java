@@ -8,7 +8,7 @@ public class Maunbot implements Observer {
 	private String currentMessage;
 
     public Maunbot() {
-        currentMessage = "Hello, world.";
+        currentMessage = "Maunbot lives.";
     }
 
     public void update(Observable o, Object arg) {

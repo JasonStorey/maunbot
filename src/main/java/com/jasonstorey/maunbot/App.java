@@ -3,16 +3,17 @@ package com.jasonstorey.maunbot;
 import com.jasonstorey.maunbot.components.*;
 
 public class App {
-    public static void main( String[] args ) {
+
+	public static void startMaunbot() {
+		Maunbot maunbot = new Maunbot();
+		System.out.println(maunbot.speak());
 
     	InstructionSource instructionSource = new TwitterInstructionSource();
+    	    instructionSource.addObserver(maunbot);
+    	    instructionSource.fetchInstructions();
+	}
 
-    	Maunbot maunbot = new Maunbot();
-
-    	instructionSource.addObserver(maunbot);
-
-    	instructionSource.sendInstruction("Do the dishes");
-
-        System.out.println(maunbot.speak());
+    public static void main( String[] args ) {
+    	startMaunbot();
     }
 }
