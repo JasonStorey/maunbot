@@ -13,7 +13,7 @@ public class App {
     	    instructionSource.fetchInstructions();
 	}
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
     	startMaunbot();
     }
 }

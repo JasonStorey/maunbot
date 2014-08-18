@@ -2,6 +2,7 @@ package com.jasonstorey.maunbot;
 
 import java.util.Observer;
 import java.util.Observable;
+import com.jasonstorey.maunbot.model.*;
 
 public class Maunbot implements Observer {
 
@@ -11,8 +12,12 @@ public class Maunbot implements Observer {
         currentMessage = "Maunbot lives.";
     }
 
+    @Override
     public void update(Observable o, Object arg) {
-    	System.out.println(arg);
+        if(arg instanceof Instruction) {
+            Instruction instuction = (Instruction) arg;
+            System.out.println(instuction.getCommand());
+        }
     }
 
     public String speak() {

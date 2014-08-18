@@ -1,40 +1,43 @@
 package com.jasonstorey.maunbot.components;
 
 import twitter4j.*;
+import com.jasonstorey.maunbot.model.*;
 
 public class TwitterInstructionSource extends InstructionSource {
 
-	private String _instruction;
+	private Instruction instruction;
 
     public TwitterInstructionSource() {
-    	
+
     }
 
 	public void fetchInstructions() {
 		System.out.println("Fetching twitter stream");
 
         TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
-        twitterStream.addListener(listener);
-
-        // user() method internally creates a thread which manipulates TwitterStream and calls these adequate listener methods continuously.
-        twitterStream.user();
+	        twitterStream.addListener(listener);
+	        twitterStream.user();
 	}
 
-    public void addInstruction(String instruction) {
-    	this._instruction = instruction;
-    	_notify();	
+    public void addInstruction(String instructionText) {
+    	this.instruction = new Instruction(instructionText);
+    	sendInstruction();
     }
 
-    private void _notify() {
+    private void sendInstruction() {
 		setChanged();
-    	notifyObservers(_instruction);
+    	notifyObservers(instruction);
 	}
 
     private UserStreamListener listener = new UserStreamListener() {
         @Override
         public void onStatus(Status status) {
-            System.out.println("onStatus @" + status.getUser().getScreenName() + " - " + status.getText());
-            addInstruction(status.getText());
+            // System.out.println("onStatus @" + status.getUser().getScreenName() + " - " + status.getText());
+            String statusText = status.getText().toLowerCase();
+
+            if(statusText.contains("instruction:")) {
+            	addInstruction(statusText);
+            }
         }
 
         @Override
