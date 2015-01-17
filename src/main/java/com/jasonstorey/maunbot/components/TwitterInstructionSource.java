@@ -11,6 +11,7 @@ public class TwitterInstructionSource extends InstructionSource {
 
     }
 
+    @Override
 	public void fetchInstructions() {
 		System.out.println("Fetching twitter stream");
 
@@ -19,6 +20,7 @@ public class TwitterInstructionSource extends InstructionSource {
 	        twitterStream.user();
 	}
 
+    @Override
     public void addInstruction(String instructionText) {
     	this.instruction = new Instruction(instructionText);
     	sendInstruction();
