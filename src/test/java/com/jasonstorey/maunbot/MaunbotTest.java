@@ -11,6 +11,6 @@ public class MaunbotTest {
     @Test
     public void speakReturnsCurrentMessage() {
         Maunbot maunbot = new Maunbot();
-        assertThat(maunbot.speak(), is("Hello, world."));
+        assertThat(maunbot.speak(), is("Maunbot lives."));
     }
 }
