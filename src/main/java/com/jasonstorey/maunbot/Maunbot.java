@@ -15,8 +15,8 @@ public class Maunbot implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(arg instanceof Instruction) {
-            Instruction instuction = (Instruction) arg;
-            System.out.println(instuction.getCommand());
+            Instruction instruction = (Instruction) arg;
+            System.out.println(instruction.getCommand());
         }
     }
 
