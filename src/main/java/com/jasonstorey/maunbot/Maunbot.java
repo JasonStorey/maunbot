@@ -6,21 +6,27 @@ import com.jasonstorey.maunbot.model.*;
 
 public class Maunbot implements Observer {
 
-	private String currentMessage;
+	private String defaultMessage;
+    private Voice voice;
 
-    public Maunbot() {
-        currentMessage = "Maunbot lives.";
+    public Maunbot(Voice voice) {
+        defaultMessage = "Maunbot lives.";
+        this.voice = voice;
     }
 
     @Override
     public void update(Observable o, Object arg) {
         if(arg instanceof Instruction) {
-            Instruction instruction = (Instruction) arg;
-            System.out.println(instruction.getCommand());
+            Instruction newInstruction = (Instruction) arg;
+            speak(newInstruction.getCommand());
         }
     }
 
-    public String speak() {
-		return currentMessage;
+    public void speak() {
+        this.voice.speak(defaultMessage);
+    }
+
+    public void speak(String message) {
+        this.voice.speak(message);
     }
 }

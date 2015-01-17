@@ -5,8 +5,9 @@ import com.jasonstorey.maunbot.components.*;
 public class App {
 
 	public static void startMaunbot() {
-		Maunbot maunbot = new Maunbot();
-		System.out.println(maunbot.speak());
+		Voice voice = new Voice();
+		Maunbot maunbot = new Maunbot(voice);
+		maunbot.speak();
 
     	InstructionSource instructionSource = new TwitterInstructionSource();
     	    instructionSource.addObserver(maunbot);
