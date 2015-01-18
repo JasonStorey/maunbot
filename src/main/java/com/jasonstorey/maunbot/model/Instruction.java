@@ -1,5 +1,8 @@
 package com.jasonstorey.maunbot.model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Instruction {
 
 	private String text;
@@ -15,6 +18,20 @@ public class Instruction {
 	}
 
 	private String parseCommandFromString(String text) {
-		return text;
+		String command = text;
+
+		if(text.toLowerCase().contains("say")) {
+			return extractSpeakString(text);
+		}
+		return command;
+	}
+
+	private String extractSpeakString(String text) {
+		Pattern p = Pattern.compile("\"([^\"]*)\"");
+		Matcher m = p.matcher(text);
+		if (m.find()) {
+			return m.group(1);
+		}
+		return "";
 	}
 }
