@@ -1,37 +1,44 @@
 package com.jasonstorey.maunbot.model;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Instruction {
 
-	private String text;
-	private String command;
+	private Command command;
+	private String arguments;
 
-	public Instruction(String text) {
-		this.text = text;
-		this.command = parseCommandFromString(text);
-	}
-
-	public String getCommand() {
-		return command;
-	}
-
-	private String parseCommandFromString(String text) {
-		String command = text;
-
-		if(text.toLowerCase().contains("say")) {
-			return extractSpeakString(text);
+	public Instruction(String instructionText) {
+		command = parseCommandFromString(instructionText);
+		if(command != null) {
+			arguments = parseArgumentsFromString(instructionText, command);
 		}
+	}
+
+	public Command getCommand() {
 		return command;
 	}
 
-	private String extractSpeakString(String text) {
-		Pattern p = Pattern.compile("\"([^\"]*)\"");
-		Matcher m = p.matcher(text);
+	public String getArguments() {
+		return arguments;
+	}
+
+	private Command parseCommandFromString(String text) {
+		String lowercaseText = text.toLowerCase();
+
+		for (Command command : Command.values()) {
+			if(lowercaseText.contains(command.getText())) {
+				return command;
+			}
+		}
+
+		return null;
+	}
+
+	private String parseArgumentsFromString(String text, Command command) {
+		Matcher m = command.getArgumentsPattern().matcher(text);
 		if (m.find()) {
 			return m.group(1);
 		}
-		return "";
+		return null;
 	}
 }

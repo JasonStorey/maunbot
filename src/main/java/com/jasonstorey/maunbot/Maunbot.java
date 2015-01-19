@@ -18,7 +18,7 @@ public class Maunbot implements Observer {
     public void update(Observable o, Object arg) {
         if(arg instanceof Instruction) {
             Instruction newInstruction = (Instruction) arg;
-            speak(newInstruction.getCommand());
+            speak(newInstruction.getArguments());
         }
     }
 

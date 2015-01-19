@@ -37,13 +37,13 @@ public class MaunbotTest {
     }
 
     @Test
-    public void speaksMessage_WhenUpdateIsCalled_WithSpeakInstruction() {
-        String speakCommand = "SPEAK: Hello, world.";
+    public void speaksMessage_WhenUpdateIsCalled_WithSpeakCommand() {
+        String speakArguments = "SPEAK: Hello, world.";
 
-        when(instruction.getCommand()).thenReturn(speakCommand);
+        when(instruction.getArguments()).thenReturn(speakArguments);
 
         maunbot.update(new Observable(), instruction);
 
-        verify(voice, times(1)).speak(speakCommand);
+        verify(voice, times(1)).speak(speakArguments);
     }
 }
