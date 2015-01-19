@@ -1,5 +1,6 @@
 package com.jasonstorey.maunbot;
 
+import com.jasonstorey.maunbot.model.Command;
 import com.jasonstorey.maunbot.model.Instruction;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,12 +39,34 @@ public class MaunbotTest {
 
     @Test
     public void speaksMessage_WhenUpdateIsCalled_WithSpeakCommand() {
-        String speakArguments = "SPEAK: Hello, world.";
+        String speakArguments = "Hello, world.";
 
+        when(instruction.getCommand()).thenReturn(Command.SPEAK);
         when(instruction.getArguments()).thenReturn(speakArguments);
 
         maunbot.update(new Observable(), instruction);
 
         verify(voice, times(1)).speak(speakArguments);
     }
+
+    @Test
+    public void doesNotSpeakMessage_WhenUpdateIsCalled_WithNullCommand() {
+        when(instruction.getCommand()).thenReturn(null);
+        when(instruction.getArguments()).thenReturn(null);
+
+        maunbot.update(new Observable(), instruction);
+
+        verify(voice, times(0)).speak(anyString());
+    }
+
+    @Test
+    public void doesNotSpeakMessage_WhenUpdateIsCalled_WithSpeakCommand_withNullArguments() {
+        when(instruction.getCommand()).thenReturn(Command.SPEAK);
+        when(instruction.getArguments()).thenReturn(null);
+
+        maunbot.update(new Observable(), instruction);
+
+        verify(voice, times(0)).speak(anyString());
+    }
+
 }
